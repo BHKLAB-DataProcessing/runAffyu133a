@@ -46,7 +46,7 @@ sampleinfo <- data.frame("samplename"=names(celfns), "filename"=celfns, "chiptyp
 
 rownames(celfile.timestamp) <- basename(rownames(celfile.timestamp))
 
-celfn <- list.files(pattern="*.cel.gz", path="/pfs/gdscU133a/", full.names=TRUE)
+celfn <- list.files(pattern="*.CEL.gz", path="/pfs/gdscU133a/", full.names=TRUE)
 
 cgp.u133a <- just.rma(filenames=celfn, cdfname="hgu133ahsensgcdf")
 save(cgp.u133a, compress=TRUE, file="GDSC_U219_ENSG_RAW.RData")
