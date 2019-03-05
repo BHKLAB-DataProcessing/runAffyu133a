@@ -3,7 +3,7 @@ library(downloader)
 library(PharmacoGxPrivate)
 options(stringsAsFactors=FALSE)
 
-load("/pfs/downloadGDSCcells/celline.gdsc.RData")
+load("/pfs/gdscCellInfo/celline.gdsc.RData")
 celline <- celline.gdsc
 
 file.paths <- file.path("/pfs/BrainArray/",c(list.files(pattern="hgu133ahsensg*", path="/pfs/BrainArray/"),
