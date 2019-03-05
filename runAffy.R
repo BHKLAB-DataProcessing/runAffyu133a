@@ -11,6 +11,8 @@ celfile.timestamp <- read.csv("/pfs/gdscU133a/celfile_timestamp.csv")
 file.paths <- file.path("/pfs/BrainArray/",c(list.files(pattern="hgu133ahsensg*", path="/pfs/BrainArray/"),
                 list.files(pattern="pd.hgu133a.hs.ensg*", path="/pfs/BrainArray/")))
 
+print(file.paths)
+
 install.packages(file.paths, repos=NULL, type="source")
 
 
