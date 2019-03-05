@@ -42,7 +42,7 @@ sampleinfo <- data.frame("samplename"=names(celfns), "filename"=celfns, "chiptyp
 
 
 ## phenodata
-load("/pfs/gdscU133a/celfile_timestamp.RData")
+# load("/pfs/gdscU133a/celfile_timestamp.RData")
 
 rownames(celfile.timestamp) <- basename(rownames(celfile.timestamp))
 
