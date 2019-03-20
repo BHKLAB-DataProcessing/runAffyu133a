@@ -6,7 +6,7 @@ options(stringsAsFactors=FALSE)
 load("/pfs/gdscCellInfo/celline.gdsc.RData")
 celline <- celline.gdsc
 
-celfile.timestamp <- read.csv("/pfs/gdscU133a/celfile_timestamp.csv")
+celfile.timestamp <- read.csv("/pfs/gdscU133a/celfile_timestamp.csv", row.names=1)
 
 file.paths <- file.path("/pfs/BrainArray/",c(list.files(pattern="^hgu133ahsensg*", path="/pfs/BrainArray/"),
                 list.files(pattern="^pd.hgu133a.hs.ensg*", path="/pfs/BrainArray/")))
@@ -49,13 +49,14 @@ sampleinfo <- data.frame("samplename"=names(celfns), "filename"=celfns, "chiptyp
 ## phenodata
 # load("/pfs/gdscU133a/celfile_timestamp.RData")
 
-rownames(celfile.timestamp) <- basename(rownames(celfile.timestamp))
+# rownames(celfile.timestamp) <- basename(rownames(celfile.timestamp))
 
 # celfn <- list.files(pattern="*.CEL.gz", path="/pfs/gdscU133a/", full.names=TRUE)
 
 cgp.u133a <- just.rma(filenames=celfn, cdfname="hgu133ahsensgcdf")
 save(cgp.u133a, compress=TRUE, file="/pfs/out/GDSC_u133a_ENSG_RAW.RData")
 print(head(rownames(pData(cgp.u133a))))
+colnames(cgp.u133a) <- gsub(sampleinfo[ , "Array.Data.File"], pat=".gz", rep="", fixed=TRUE)
 pData(cgp.u133a) <- data.frame(pData(cgp.u133a), sampleinfo[match(colnames(exprs(cgp.u133a)), sampleinfo[ , "Array.Data.File"]), , drop=FALSE], celfile.timestamp[rownames(pData(cgp.u133a)), , drop=FALSE])
 colnames(exprs(cgp.u133a)) <- rownames(pData(cgp.u133a)) <- colnames(exprs(cgp.u133a))
 fData(cgp.u133a) <- data.frame("PROBE"=rownames(exprs(cgp.u133a)), "GENEID"=sapply(strsplit(rownames(exprs(cgp.u133a)), "_"), function (x) { return (x[[1]]) }), "BEST"=TRUE)
