@@ -94,6 +94,7 @@ fData(eset) <- data.frame("Probe"=rownames(exprs(eset)),
 
 rownames(fData(eset)) <- eset@featureData@data$EnsemblGeneId
 rownames(eset) <-  eset@featureData@data$EnsemblGeneId
+eset@featureData@data$EnsemblGeneId[1:68] <- NA
 pData(eset)[,"batchid"] <- NA
 annotation(eset) <- "rna"
 
