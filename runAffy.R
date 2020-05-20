@@ -1,6 +1,6 @@
 library(affy)
 library(downloader)
-library(PharmacoGxPrivate)
+library(PharmacoGx)
 options(stringsAsFactors=FALSE)
 
 load("/pfs/gdscCellInfo/celline.gdsc.RData")
