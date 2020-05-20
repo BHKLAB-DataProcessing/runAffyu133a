@@ -81,4 +81,21 @@ colnames(exprs(cgp.u133a)) <- rownames(pData(cgp.u133a)) <- colnames(exprs(cgp.u
 fData(cgp.u133a) <- data.frame("PROBE"=rownames(exprs(cgp.u133a)), "GENEID"=sapply(strsplit(rownames(exprs(cgp.u133a)), "_"), function (x) { return (x[[1]]) }), "BEST"=TRUE)
 rownames(fData(cgp.u133a)) <- rownames(exprs(cgp.u133a))
 cgp.u133a.ensg <- cgp.u133a
+
+
+load("/pfs/downAnnotations/Ensembl.v99.annotation.RData")
+eset <- cgp.u133a.ensg
+controls <- rownames(exprs(eset))[grep("AFFX", rownames(exprs(eset)))]
+ensemblIds <- sapply(strsplit(rownames(exprs(eset)), "_at"), function (x) { return (x[[1]]) })
+fData(eset) <- data.frame("Probe"=rownames(exprs(eset)), 
+                          "EnsemblGeneId"=ensemblIds,
+                          "Symbol"=features_gene[ensemblIds, "gene_name"],
+                          "GeneBioType"=features_gene[ensemblIds, "gene_biotype"])
+
+rownames(fData(eset)) <- eset@featureData@data$EnsemblGeneId
+rownames(eset) <-  eset@featureData@data$EnsemblGeneId
+pData(eset)[,"batchid"] <- NA
+annotation(eset) <- "rna"
+
+cgp.u133a.ensg <- eset
 save(cgp.u133a.ensg, compress=TRUE, file="/pfs/out/GDSC_U133a_ENSG.RData")
