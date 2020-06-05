@@ -8,8 +8,8 @@ celline <- celline.gdsc
 
 celfile.timestamp <- read.csv("/pfs/gdscU133a/celfile_timestamp.csv", row.names=1)
 
-file.paths <- file.path("/pfs/BrainArray/",c(list.files(pattern="^hgu133ahsensg*", path="/pfs/BrainArray/"),
-                list.files(pattern="^pd.hgu133a.hs.ensg*", path="/pfs/BrainArray/")))
+file.paths <- file.path("/pfs/BrainArray/",c(list.files(pattern="^hthgu133ahsensg*", path="/pfs/BrainArray/"),
+                list.files(pattern="^pd.hthgu133a.hs.ensg*", path="/pfs/BrainArray/")))
 
 print(file.paths)
 
@@ -72,7 +72,7 @@ sampleinfo <- data.frame("samplename"=names(celfns), "filename"=celfns, "chiptyp
 
 # celfn <- list.files(pattern="*.CEL.gz", path="/pfs/gdscU133a/", full.names=TRUE)
 
-cgp.u133a <- just.rma(filenames=celfn, cdfname="hgu133ahsensgcdf")
+cgp.u133a <- just.rma(filenames=celfn, cdfname="hthgu133ahsensgcdf")
 save(cgp.u133a, compress=TRUE, file="/pfs/out/GDSC_u133a_ENSG_RAW.RData")
 print(head(rownames(pData(cgp.u133a))))
 colnames(cgp.u133a) <- gsub(colnames(cgp.u133a), pat=".gz", rep="", fixed=TRUE)
